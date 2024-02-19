@@ -10,6 +10,7 @@ class Ball(Turtle):
         self.shape("circle")
         self.x_move = 10
         self.y_move = 10
+        self.move_speed = 0.1
 
     def move(self):
         x = self.xcor() + self.x_move
@@ -24,14 +25,18 @@ class Ball(Turtle):
 
     def reset_position(self):
         self.goto(0, 0)
+        self.move_speed = 0.1
         self.bounce_x()
 
-    def check_collision(self, l_paddle, r_paddle):
+    def check_collision(self, l_paddle, r_paddle, scoreboard):
         if self.ycor() > 280 or self.ycor() < -280:
             self.bounce_y()
         if self.distance(r_paddle) < 50 and self.xcor() > 320 or self.distance(l_paddle) < 50 and self.xcor() < -320:
             self.bounce_x()
+            self.move_speed *= 0.9
         if self.xcor() > 380:
             self.reset_position()
+            scoreboard.l_point()
         if self.xcor() < -380:
             self.reset_position()
+            scoreboard.r_point()
