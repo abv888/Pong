@@ -26,6 +26,7 @@ while game_is_on:
     time.sleep(0.1)
     screen.update()
     ball.move()
+    ball.check_collision(left_paddle, right_paddle)
 
 
 screen.exitonclick()
